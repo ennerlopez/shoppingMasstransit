@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MassTransit.NHibernateIntegration</name>
+    </assembly>
+    <members>
+        <member name="T:MassTransit.NHibernateIntegration.NHibernateSessionFactoryProvider">
+            <summary>
+            Makes it easy to create an NHibernate Session factory using the mappings for
+            sagas and such.
+            </summary>
+        </member>
+        <member name="M:MassTransit.NHibernateIntegration.NHibernateSessionFactoryProvider.GetSessionFactory">
+            <summary>
+            Builds the session factory and returns the ISessionFactory. If it was already
+            built, the same instance is returned.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MassTransit.NHibernateIntegration.NHibernateSessionFactoryProvider.UpdateSchema">
+            <summary>
+            Update the schema in the database
+            </summary>
+        </member>
+        <member name="T:MassTransit.NHibernateIntegration.SagaClassMapping`1">
+            <summary>
+            A base class that can be used to define an NHibernate saga map, which
+            automatically sets the saga to not be lazy and defined the Id property
+            to have the correct generator of Assigned
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="T:MassTransit.NHibernateIntegration.Saga.NHibernateSagaRepository`1.MissingPipe`1">
+            <summary>
+            Once the message pipe has processed the saga instance, add it to the saga repository
+            </summary>
+            <typeparam name="TMessage"></typeparam>
+        </member>
+        <member name="T:MassTransit.NHibernateIntegration.UriUserType">
+            <summary>
+            An NHibernate user type for storing a Uri
+            </summary>
+        </member>
+    </members>
+</doc>

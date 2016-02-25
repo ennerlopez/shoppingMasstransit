@@ -1,0 +1,456 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MassTransit.AutomatonymousIntegration</name>
+    </assembly>
+    <members>
+        <member name="T:Automatonymous.Activities.RequestActivityImpl`3.SendRequestPipe">
+            <summary>
+            Handles the sending of a request to the endpoint specified
+            </summary>
+        </member>
+        <member name="M:Automatonymous.MissingInstanceConfigurator`1.Discard">
+            <summary>
+            Discard the event, silently ignoring the missing instance for the event
+            </summary>
+        </member>
+        <member name="M:Automatonymous.MissingInstanceConfigurator`1.Fault">
+            <summary>
+            Fault the saga consumer, which moves the message to the error queue
+            </summary>
+        </member>
+        <member name="P:Automatonymous.ScheduleConfigurator`2.Delay">
+            <summary>
+            Sets the message send delay
+            </summary>
+        </member>
+        <member name="P:Automatonymous.EventCorrelation.DataType">
+            <summary>
+            The data type for the event
+            </summary>
+        </member>
+        <member name="P:Automatonymous.EventCorrelation`2.Policy">
+            <summary>
+            Returns the saga policy for the event correlation
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Automatonymous.EventCorrelation`2.FilterFactory">
+            <summary>
+            The filter factory creates the filter when requested by the connector
+            </summary>
+        </member>
+        <member name="P:Automatonymous.EventCorrelation`2.MessageFilter">
+            <summary>
+            The message filter which extracts the correlationId from the message
+            </summary>
+        </member>
+        <member name="P:Automatonymous.EventCorrelationConfigurator`2.InsertOnInitial">
+            <summary>
+            If set to true, the state machine suggests that the saga instance be inserted blinding prior to the get/lock
+            using a weaker isolation level. This prevents range locks in the database from slowing inserts.
+            </summary>
+        </member>
+        <member name="M:Automatonymous.EventCorrelationConfigurator`2.CorrelateById(System.Func{MassTransit.ConsumeContext{`1},System.Guid})">
+            <summary>
+            Correlate to the saga instance by CorrelationId, using the id from the event data
+            </summary>
+            <param name="selector">Returns the CorrelationId from the event data</param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.EventCorrelationConfigurator`2.CorrelateBy``1(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{``0}}},System.Func{MassTransit.ConsumeContext{`1},System.Nullable{``0}})">
+            <summary>
+            Correlate to the saga instance by a single property, matched to the property value of the message
+            </summary>
+            <param name="propertyExpression">The instance property</param>
+            <param name="selector"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.EventCorrelationConfigurator`2.CorrelateBy``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Func{MassTransit.ConsumeContext{`1},``0})">
+            <summary>
+            Correlate to the saga instance by a single property, matched to the property value of the message
+            </summary>
+            <param name="propertyExpression">The instance property</param>
+            <param name="selector"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.EventCorrelationConfigurator`2.SelectId(System.Func{MassTransit.ConsumeContext{`1},System.Guid})">
+            <summary>
+            When creating a new saga instance, initialize the saga CorrelationId with the id from the event data
+            </summary>
+            <param name="selector">Returns the CorrelationId from the event data</param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.EventCorrelationConfigurator`2.CorrelateBy(System.Linq.Expressions.Expression{System.Func{`0,MassTransit.ConsumeContext{`1},System.Boolean}})">
+            <summary>
+            Speicyf the correlation expression for the event
+            </summary>
+            <param name="correlationExpression"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.EventCorrelationConfigurator`2.SetSagaFactory(MassTransit.Saga.SagaFactoryMethod{`0,`1})">
+            <summary>
+            Creates a new instance of the saga, and if appropriate, pre-inserts the saga intance to the database. If the saga already exists, any
+            exceptions from the insert are suppressed and processing continues normally.
+            </summary>
+            <param name="factoryMethod">The factory method for the saga</param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.EventCorrelationConfigurator`2.OnMissingInstance(System.Func{Automatonymous.MissingInstanceConfigurator{`1},MassTransit.Pipeline.IPipe{MassTransit.ConsumeContext{`1}}})">
+            <summary>
+            If an event is consumed that is not matched to an existing saga instance, discard the event without throwing an exception.
+            The default behavior is to throw an exception, which moves the event into the error queue for later processing
+            </summary>
+            <param name="getBehavior">The configuration call to specify the behavior on missing instance</param>
+            <returns></returns>
+        </member>
+        <member name="P:Automatonymous.RequestConfigurator`3.ServiceAddress">
+            <summary>
+            Sets the service address of the request handler
+            </summary>
+        </member>
+        <member name="P:Automatonymous.RequestConfigurator`3.SchedulingServiceAddress">
+            <summary>
+            Sets the address of the message scheduling service
+            </summary>
+        </member>
+        <member name="P:Automatonymous.RequestConfigurator`3.Timeout">
+            <summary>
+            Sets the request timeout
+            </summary>
+        </member>
+        <member name="T:Automatonymous.ConsumeEventContext`1">
+            <summary>
+            Combines the consumption of an event in a state machine with the consumer context of the receiving endpoint.
+            </summary>
+            <typeparam name="TInstance"></typeparam>
+        </member>
+        <member name="T:Automatonymous.ConsumeEventContext`2">
+            <summary>
+            Combines the consumption of an event in a state machine with the consumer context of the receiving endpoint.
+            </summary>
+            <typeparam name="TInstance"></typeparam>
+            <typeparam name="TData"></typeparam>
+        </member>
+        <member name="P:Automatonymous.Events.RequestTimeoutExpired.CorrelationId">
+            <summary>
+            The correlationId of the state machine
+            </summary>
+        </member>
+        <member name="P:Automatonymous.Events.RequestTimeoutExpired.Timestamp">
+            <summary>
+            When the request expired
+            </summary>
+        </member>
+        <member name="P:Automatonymous.Events.RequestTimeoutExpired.ExpirationTime">
+            <summary>
+            The expiration time that was scheduled for the request
+            </summary>
+        </member>
+        <member name="P:Automatonymous.Events.RequestTimeoutExpired.RequestId">
+            <summary>
+            The requestId of the request
+            </summary>
+        </member>
+        <member name="T:Automatonymous.MassTransitStateMachine`1">
+            <summary>
+            A MassTransit state machine adds functionality on top of Automatonymous supporting
+            things like request/response, and correlating events to the state machine, as well
+            as retry and policy configuration.
+            </summary>
+            <typeparam name="TInstance">The state instance type</typeparam>
+        </member>
+        <member name="M:Automatonymous.MassTransitStateMachine`1.SetCompleted(System.Func{`0,System.Boolean})">
+            <summary>
+            Sets the method used to determine if a state machine instance is completed. A completed 
+            state machine instance is removed from the saga repository.
+            </summary>
+            <param name="completed"></param>
+        </member>
+        <member name="M:Automatonymous.MassTransitStateMachine`1.SetCompletedWhenFinalized">
+            <summary>
+            Sets the state machine instance to Completed when in the final state. A completed
+            state machine instance is removed from the saga repository.
+            </summary>
+        </member>
+        <member name="M:Automatonymous.MassTransitStateMachine`1.Event``1(System.Linq.Expressions.Expression{System.Func{Automatonymous.Event{``0}}},System.Action{Automatonymous.EventCorrelationConfigurator{`0,``0}})">
+            <summary>
+            Declares an Event on the state machine with the specified data type, and allows the correlation of the event
+            to be configured.
+            </summary>
+            <typeparam name="T">The event data type</typeparam>
+            <param name="propertyExpression">The event property</param>
+            <param name="configureEventCorrelation">Configuration callback for the event</param>
+        </member>
+        <member name="M:Automatonymous.MassTransitStateMachine`1.Event``2(System.Linq.Expressions.Expression{System.Func{``0}},System.Linq.Expressions.Expression{System.Func{``0,Automatonymous.Event{``1}}},System.Action{Automatonymous.EventCorrelationConfigurator{`0,``1}})">
+            <summary>
+            Declares an Event on the state machine with the specified data type, and allows the correlation of the event
+            to be configured.
+            </summary>
+            <typeparam name="T">The event data type</typeparam>
+            <typeparam name="TProperty">The property type</typeparam>
+            <param name="propertyExpression">The containing property</param>
+            <param name="eventPropertyExpression">The event property expression</param>
+            <param name="configureEventCorrelation">Configuration callback for the event</param>
+        </member>
+        <member name="M:Automatonymous.MassTransitStateMachine`1.Event``1(System.Linq.Expressions.Expression{System.Func{Automatonymous.Event{``0}}})">
+            <summary>
+            Declares an event on the state machine with the specified data type, where the data type contains the
+            CorrelatedBy(Guid) interface. The correlation by CorrelationId is automatically configured to the saga
+            instance.
+            </summary>
+            <typeparam name="T">The event data type</typeparam>
+            <param name="propertyExpression">The property to initialize</param>
+        </member>
+        <member name="M:Automatonymous.MassTransitStateMachine`1.Request``2(System.Linq.Expressions.Expression{System.Func{Automatonymous.Request{`0,``0,``1}}},System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Guid}}},System.Action{Automatonymous.RequestConfigurator{`0,``0,``1}})">
+            <summary>
+            Declares a request that is sent by the state machine to a service, and the associated response, fault, and
+            timeout handling. The property is initialized with the fully built Request. The request must be declared before
+            it is used in the state/event declaration statements.
+            </summary>
+            <typeparam name="TRequest">The request type</typeparam>
+            <typeparam name="TResponse">The response type</typeparam>
+            <param name="propertyExpression">The request property on the state machine</param>
+            <param name="requestIdExpression">The property where the requestId is stored</param>
+            <param name="configureRequest">Allow the request settings to be specified inline</param>
+        </member>
+        <member name="M:Automatonymous.MassTransitStateMachine`1.Request``2(System.Linq.Expressions.Expression{System.Func{Automatonymous.Request{`0,``0,``1}}},System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Guid}}},Automatonymous.RequestSettings)">
+            <summary>
+            Declares a request that is sent by the state machine to a service, and the associated response, fault, and
+            timeout handling. The property is initialized with the fully built Request. The request must be declared before
+            it is used in the state/event declaration statements.
+            </summary>
+            <typeparam name="TRequest">The request type</typeparam>
+            <typeparam name="TResponse">The response type</typeparam>
+            <param name="propertyExpression">The request property on the state machine</param>
+            <param name="requestIdExpression">The property where the requestId is stored</param>
+            <param name="settings">The request settings (which can be read from configuration, etc.)</param>
+        </member>
+        <member name="M:Automatonymous.MassTransitStateMachine`1.Schedule``1(System.Linq.Expressions.Expression{System.Func{Automatonymous.Schedule{`0,``0}}},System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Guid}}},System.Action{Automatonymous.ScheduleConfigurator{`0,``0}})">
+            <summary>
+            Declares a schedule placeholder that is stored with the state machine instance
+            </summary>
+            <typeparam name="TMessage">The request type</typeparam>
+            <param name="propertyExpression">The schedule property on the state machine</param>
+            <param name="tokenIdExpression">The property where the tokenId is stored</param>
+            <param name="configureSchedule">The callback to configure the schedule</param>
+        </member>
+        <member name="M:Automatonymous.MassTransitStateMachine`1.Schedule``1(System.Linq.Expressions.Expression{System.Func{Automatonymous.Schedule{`0,``0}}},System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Guid}}},Automatonymous.ScheduleSettings{`0,``0})">
+            <summary>
+            Declares a schedule placeholder that is stored with the state machine instance
+            </summary>
+            <typeparam name="TMessage">The scheduled message type</typeparam>
+            <param name="propertyExpression">The schedule property on the state machine</param>
+            <param name="tokenIdExpression">The property where the tokenId is stored</param>
+            <param name="settings">The request settings (which can be read from configuration, etc.)</param>
+        </member>
+        <member name="M:Automatonymous.MassTransitStateMachine`1.RegisterImplicit">
+            <summary>
+            Register all remaining events and states that have not been explicitly declared.
+            </summary>
+        </member>
+        <member name="T:Automatonymous.Request`3">
+            <summary>
+            A request is a state-machine based request configuration that includes
+            the events and states related to the execution of a request.
+            </summary>
+            <typeparam name="TRequest">The request type</typeparam>
+            <typeparam name="TResponse">The response type</typeparam>
+            <typeparam name="TInstance"></typeparam>
+        </member>
+        <member name="P:Automatonymous.Request`3.Name">
+            <summary>
+            The name of the request
+            </summary>
+        </member>
+        <member name="P:Automatonymous.Request`3.Settings">
+            <summary>
+            The settings that are used for the request, including the timeout
+            </summary>
+        </member>
+        <member name="P:Automatonymous.Request`3.Completed">
+            <summary>
+            The event that is raised when the request completes and the response is received
+            </summary>
+        </member>
+        <member name="P:Automatonymous.Request`3.Faulted">
+            <summary>
+            The event raised when the request faults
+            </summary>
+        </member>
+        <member name="P:Automatonymous.Request`3.TimeoutExpired">
+            <summary>
+            The event raised when the request times out with no response received
+            </summary>
+        </member>
+        <member name="P:Automatonymous.Request`3.Pending">
+            <summary>
+            The state that is transitioned to once the request is pending
+            </summary>
+        </member>
+        <member name="M:Automatonymous.Request`3.SetRequestId(`0,System.Guid)">
+            <summary>
+            Sets the requestId on the instance using the configured property
+            </summary>
+            <param name="instance"></param>
+            <param name="requestId"></param>
+        </member>
+        <member name="M:Automatonymous.RequestExtensions.Request``4(Automatonymous.Binders.EventActivityBinder{``0,``1},Automatonymous.Request{``0,``2,``3},Automatonymous.EventMessageFactory{``0,``1,``2})">
+            <summary>
+            Send a request to the configured service endpoint, and setup the state machine to accept the response.
+            </summary>
+            <typeparam name="TInstance">The state instance type</typeparam>
+            <typeparam name="TData">The event data type</typeparam>
+            <typeparam name="TRequest">The request message type</typeparam>
+            <typeparam name="TResponse">The response message type</typeparam>
+            <param name="binder">The event binder</param>
+            <param name="request">The configured request to use</param>
+            <param name="messageFactory">The request message factory</param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.RequestExtensions.Request``3(Automatonymous.Binders.EventActivityBinder{``0},Automatonymous.Request{``0,``1,``2},Automatonymous.EventMessageFactory{``0,``1})">
+            <summary>
+            Send a request to the configured service endpoint, and setup the state machine to accept the response.
+            </summary>
+            <typeparam name="TInstance">The state instance type</typeparam>
+            <typeparam name="TRequest">The request message type</typeparam>
+            <typeparam name="TResponse">The response message type</typeparam>
+            <param name="binder">The event binder</param>
+            <param name="request">The configured request to use</param>
+            <param name="messageFactory">The request message factory</param>
+            <returns></returns>
+        </member>
+        <member name="T:Automatonymous.RequestSettings">
+            <summary>
+            The request settings include the address of the request handler, as well as the timeout to use
+            for requests.
+            </summary>
+        </member>
+        <member name="P:Automatonymous.RequestSettings.ServiceAddress">
+            <summary>
+            The endpoint address of the service that handles the request
+            </summary>
+        </member>
+        <member name="P:Automatonymous.RequestSettings.SchedulingServiceAddress">
+            <summary>
+            The endpoint address of the message scheduling services
+            </summary>
+        </member>
+        <member name="P:Automatonymous.RequestSettings.Timeout">
+            <summary>
+            The timeout period before the request times out
+            </summary>
+        </member>
+        <member name="P:Automatonymous.SagaStateMachine`1.Correlations">
+            <summary>
+            Returns the event correlations for the state machine
+            </summary>
+        </member>
+        <member name="M:Automatonymous.SagaStateMachine`1.IsCompleted(`0)">
+            <summary>
+            Returns true if the saga state machine instance is complete and can be removed from the repository
+            </summary>
+            <param name="instance"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Automatonymous.Schedule`1">
+            <summary>
+            Holds the state of a scheduled message
+            </summary>
+            <typeparam name="TInstance"></typeparam>
+        </member>
+        <member name="P:Automatonymous.Schedule`1.Name">
+            <summary>
+            The name of the scheduled message
+            </summary>
+        </member>
+        <member name="P:Automatonymous.Schedule`1.Delay">
+            <summary>
+            The delay for the message
+            </summary>
+        </member>
+        <member name="M:Automatonymous.Schedule`1.GetTokenId(`0)">
+            <summary>
+            Return the TokenId for the instance
+            </summary>
+            <param name="instance"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.Schedule`1.SetTokenId(`0,System.Nullable{System.Guid})">
+            <summary>
+            Set the token ID on the Instance
+            </summary>
+            <param name="instance"></param>
+            <param name="tokenId"></param>
+        </member>
+        <member name="T:Automatonymous.Schedule`2">
+            <summary>
+            Holds the state of a scheduled message
+            </summary>
+            <typeparam name="TInstance"></typeparam>
+            <typeparam name="TMessage"></typeparam>
+        </member>
+        <member name="P:Automatonymous.Schedule`2.Received">
+            <summary>
+            This event is raised when the scheduled message is received. If a previous message
+            was rescheduled, this event is filtered so that only the most recently scheduled
+            message is allowed.
+            </summary>
+        </member>
+        <member name="P:Automatonymous.Schedule`2.AnyReceived">
+            <summary>
+            This event is raised when any message is directed at the state machine, but it is 
+            not filtered to the currently scheduled event. So outdated or original events may
+            be raised.
+            </summary>
+        </member>
+        <member name="T:Automatonymous.ScheduleSettings`2">
+            <summary>
+            The schedule settings, including the default delay for the message
+            </summary>
+        </member>
+        <member name="P:Automatonymous.ScheduleSettings`2.Delay">
+            <summary>
+            The delay before the message is sent
+            </summary>
+        </member>
+        <member name="P:Automatonymous.ScheduleSettings`2.Received">
+            <summary>
+            Configure the received correlation
+            </summary>
+        </member>
+        <member name="M:Automatonymous.RetryLaterExtensions.RetryLater``3(Automatonymous.Binders.EventActivityBinder{``0,``1})">
+            <summary>
+            Resends the message to the input queue so that it can be received again later.
+            </summary>
+            <typeparam name="TInstance"></typeparam>
+            <typeparam name="TData"></typeparam>
+            <typeparam name="TMessage"></typeparam>
+            <param name="source"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.StateMachineSubscriptionExtensions.StateMachineSaga``1(MassTransit.IReceiveEndpointConfigurator,Automatonymous.SagaStateMachine{``0},MassTransit.Saga.ISagaRepository{``0})">
+            <summary>
+            Subscribe a state machine saga to the endpoint
+            </summary>
+            <typeparam name="TInstance">The state machine instance type</typeparam>
+            <param name="configurator"></param>
+            <param name="stateMachine">The state machine</param>
+            <param name="repository">The saga repository for the instances</param>
+            <returns></returns>
+        </member>
+        <member name="T:Automatonymous.SagaStateMachineInstance">
+            <summary>
+            An Automatonymous state machine instance that is usable as a saga by MassTransit must implement this interface.
+            It indicates to the framework the available features of the state as being a state machine instance.
+            </summary>
+        </member>
+        <member name="T:Automatonymous.Pipeline.StateMachineSagaMessageFilter`2">
+            <summary>
+            Dispatches the ConsumeContext to the consumer method for the specified message type
+            </summary>
+            <typeparam name="TInstance">The consumer type</typeparam>
+            <typeparam name="TData">The message type</typeparam>
+        </member>
+    </members>
+</doc>

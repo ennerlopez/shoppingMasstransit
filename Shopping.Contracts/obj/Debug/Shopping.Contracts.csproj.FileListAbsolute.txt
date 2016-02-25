@@ -1,0 +1,14 @@
+C:\(DEI)\Desarrollo\Examples\Saga\Sample-ShoppingWeb-master\src\Shopping.Contracts\bin\Debug\Shopping.Contracts.dll
+C:\(DEI)\Desarrollo\Examples\Saga\Sample-ShoppingWeb-master\src\Shopping.Contracts\bin\Debug\Shopping.Contracts.pdb
+C:\(DEI)\Desarrollo\Examples\Saga\Sample-ShoppingWeb-master\src\Shopping.Contracts\bin\Debug\MassTransit.dll
+C:\(DEI)\Desarrollo\Examples\Saga\Sample-ShoppingWeb-master\src\Shopping.Contracts\bin\Debug\MassTransit.RabbitMqTransport.dll
+C:\(DEI)\Desarrollo\Examples\Saga\Sample-ShoppingWeb-master\src\Shopping.Contracts\bin\Debug\NewId.dll
+C:\(DEI)\Desarrollo\Examples\Saga\Sample-ShoppingWeb-master\src\Shopping.Contracts\bin\Debug\Newtonsoft.Json.dll
+C:\(DEI)\Desarrollo\Examples\Saga\Sample-ShoppingWeb-master\src\Shopping.Contracts\bin\Debug\RabbitMQ.Client.dll
+C:\(DEI)\Desarrollo\Examples\Saga\Sample-ShoppingWeb-master\src\Shopping.Contracts\bin\Debug\MassTransit.xml
+C:\(DEI)\Desarrollo\Examples\Saga\Sample-ShoppingWeb-master\src\Shopping.Contracts\bin\Debug\MassTransit.RabbitMqTransport.xml
+C:\(DEI)\Desarrollo\Examples\Saga\Sample-ShoppingWeb-master\src\Shopping.Contracts\bin\Debug\Newtonsoft.Json.xml
+C:\(DEI)\Desarrollo\Examples\Saga\Sample-ShoppingWeb-master\src\Shopping.Contracts\bin\Debug\RabbitMQ.Client.xml
+C:\(DEI)\Desarrollo\Examples\Saga\Sample-ShoppingWeb-master\src\Shopping.Contracts\obj\Debug\Shopping.Contracts.dll
+C:\(DEI)\Desarrollo\Examples\Saga\Sample-ShoppingWeb-master\src\Shopping.Contracts\obj\Debug\Shopping.Contracts.pdb
+C:\(DEI)\Desarrollo\Examples\Saga\Sample-ShoppingWeb-master\src\Shopping.Contracts\obj\Debug\Shopping.Contracts.csprojResolveAssemblyReference.cache
